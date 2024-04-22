@@ -29,8 +29,17 @@ async function run() {
         await client.connect();
 
         const userCollection = client.db('usersDB').collection('users');
- 
-        app.get('/users',async(req,res)=>{
+
+
+        app.get('/users/:id', async (req, res) => {
+            const id = req.params.id;
+            console.log(id);
+            const query = { _id: new ObjectId(id) };
+            const result = await userCollection.findOne(query)
+            res.send(result)
+        })
+
+        app.get('/users', async (req, res) => {
             const cursor = userCollection.find();
             const result = await cursor.toArray();
             res.send(result)
@@ -43,9 +52,25 @@ async function run() {
             res.send(result);
         });
 
-        app.delete('/users/:id', async(req,res)=>{
-            const id = req.params.id ;
-            console.log("delete from DB" , id);
+
+        app.put('/users/:id', async (req, res) => {
+            const id = req.params.id;
+            const user = req.body;
+            const filter = { _id: new ObjectId(id) }
+            const options = { upsert: true };
+            const updateUser = {
+                $set: {
+                    name: user.name,
+                    email: user.email,
+                }
+            }
+            const result = await userCollection.updateOne(filter, updateUser, options)
+            res.send(result)
+        })
+
+        app.delete('/users/:id', async (req, res) => {
+            const id = req.params.id;
+            console.log("delete from DB", id);
             const query = { _id: new ObjectId(id) };
             const result = await userCollection.deleteOne(query)
             res.send(result)
