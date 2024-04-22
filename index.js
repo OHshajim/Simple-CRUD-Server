@@ -9,9 +9,9 @@ app.use(cors())
 app.use(express.json())
 
 // ajshajimmax
-// c5luAwKDAnCQ1Eq2
+// XXXXXXXXXXXXX
 
-const uri = "mongodb+srv://ajshajimmax:c5luAwKDAnCQ1Eq2@cluster0.q9eobgc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb+srv://ajshajimmax:XXXXXXXXXXXXX@cluster0.q9eobgc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
